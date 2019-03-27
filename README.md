@@ -29,6 +29,6 @@ __bamazonManager.js__
 
 #### I did managed to update product sales in the product table. 
 
-#### Video links: link 1: https://vimeo.com/326733682
+#### Video link : https://vimeo.com/326733682
 
 ##### npms/libraries used: "inquirer": "^6.2.2", "json": "^9.0.6", my.SQL
