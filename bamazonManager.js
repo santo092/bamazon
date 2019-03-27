@@ -21,7 +21,7 @@ connection.connect(err => {
 listProducts = () => {
     connection.query("SELECT * FROM products", (err, results) => {
         if (err) throw err;
-        console.log(results);
+        console.table(results);
         console.log("");
         start();
     })

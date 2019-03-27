@@ -105,7 +105,7 @@ function start() {
                    // `UPDATE products SET product_sales = ${total} WHERE item_id = chosenItem.item_id`
                 );
 
-                connection.query(`UPDATE products SET product_sales = ${total}+ ${total} WHERE item_id = ${chosenItem.item_id}`)
+                connection.query(`UPDATE products SET product_sales = ${total} WHERE item_id = ${chosenItem.item_id}`)
                 // connection.query(`UPDATE product_sales  =  ${total} + ${total}`)
 
             }
