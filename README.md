@@ -1,6 +1,6 @@
-## bamazon
+##### bamazon
 
-# This Bamazon 'Amazon-like storefront app' node app takes in commands and gives a response based on commands available:
+## This Bamazon 'Amazon-like storefront app' node app takes in commands and gives a response based on commands available:
 
 __bamazonCustomer.js__
 * user is will take on the consumer role
@@ -29,6 +29,6 @@ __bamazonManager.js__
 
 #### I did managed to update product sales in the product table. 
 
-## Video links: link 1: https://vimeo.com/326733682
+#### Video links: link 1: https://vimeo.com/326733682
 
 ##### npms/libraries used: "inquirer": "^6.2.2", "json": "^9.0.6", my.SQL
