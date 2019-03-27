@@ -5,18 +5,20 @@ const mysql = require("mysql");
 
 //connect to database
 const connection = mysql.createConnection({
+
     host: "localhost",
     post: 3306,
     user: "root",
     password: "password",
-    database: "bamazon_db"
+    database: "bamazon_db",
+    multipleStatements: true
 });
 
 connection.connect(err => {
     if (err) throw err;
     start();
 })
-function cont(){
+function cont() {
     inquirer.prompt([
         {
             name: "cont",
@@ -24,14 +26,14 @@ function cont(){
             message: "What would you like to do next?",
             choices: ["Purchase another item", "Exit"]
         }
-    ]).then(answer =>{
-        if(answer.cont === "Purchase another item"){
-    start();
+    ]).then(answer => {
+        if (answer.cont === "Purchase another item") {
+            start();
         }
-        else{
+        else {
             connection.end();
         }
-    })   
+    })
 }
 
 function start() {
@@ -48,7 +50,8 @@ function start() {
                         choiceArray.push(results[i].product_name);
                     }
                     return choiceArray;
-                }
+                },
+                message: "What would you like to purchase?"
             },
             {
                 name: "unitNum",
@@ -69,14 +72,18 @@ function start() {
 
             //subtract the unitNum to stock.quantity
 
-            if (chosenItem.stock_quantity > parseInt(answer.unitNum)) {
-
+            if (chosenItem.stock_quantity >= parseInt(answer.unitNum)) {
                 // console.log(chosenItem.stock_quantity-answer.unitNum)
 
-                let unitLeft = (chosenItem.stock_quantity - answer.unitNum)
+                let unitLeft = (chosenItem.stock_quantity - answer.unitNum);
+                let total = parseFloat(chosenItem.price * answer.unitNum).toFixed(2);
+                let updateTot = total + total;
+                
 
+                // connection.query(
+                //     `UPDATE products SET product_sales = ${total} [WHERE ${chosenItem.item_id}]`,
+                // )
                 connection.query(
-
                     "UPDATE products SET ? WHERE ?",
                     [
                         {
@@ -87,16 +94,23 @@ function start() {
                         }
                     ],
                     function (error) {
-                        if (error) throw err;
-                        let total = parseFloat(chosenItem.price * answer.unitNum).toFixed(2)
+                        if (error) throw error;
+                        console.log("")
                         console.log("Your order total is $" + total);
                         console.log("");
                         cont();
-                    }
+                        //  let newTotal = product.product_sales + total;
+                    },
+
+                   // `UPDATE products SET product_sales = ${total} WHERE item_id = chosenItem.item_id`
                 );
+
+                connection.query(`UPDATE products SET product_sales = ${total}+ ${total} WHERE item_id = ${chosenItem.item_id}`)
+                // connection.query(`UPDATE product_sales  =  ${total} + ${total}`)
+
             }
-            else{
-                
+            else {
+
                 console.log("Insufficient quantity!")
                 cont();
 
